@@ -58,7 +58,7 @@
 
 ## 环境要求
 
-- **DSH 0.2.1 或更新版本**（浮层）。
+- **DSH 0.2.1-rc.3 或更新版本**（浮层）。
 - **在 DSH 中登录的 DeepSeek 账户**（余额）；没有账户时 Token 用量仍可用，钱包会显示 `OFFLINE` / `NO ACCOUNT`。
 - **macOS 13+ 和 Xcode Command Line Tools**（桌面 app，`swiftc`）。
 
@@ -122,14 +122,14 @@ open PixelUsageDesk.app
 
 ## 隐私与安全
 
-- **没有遥测**，**不调用模型**。
+- 插件**不增加遥测**，也**不调用模型**。
 - 桌面 app 只**只读** DSH 的凭据 token；不写入、不打印，除了 DeepSeek Platform 余额接口之外不上传。
 - 浮层通过 DSH 的账户 Remote 访问，不自己开网络连接。
 - 仓库里没有任何凭据。请在本机构建桌面 app；不要把包含别人数据的副本分发出去。
 
 ## 兼容性与限制
 
-- 浮层需要 DSH Web `0.2.1+` 和 `shell.overlay` / session-controller 服务。
+- 浮层需要 DSH Web `0.2.1-rc.3+` 和 `shell.overlay` / session-controller 服务。
 - 钱包余额需要已登录的 DeepSeek 账户；Token 用量完全在本地，不依赖账户。
 - “全部”是已加载 projection 的会话合计，不是历史数据库；暂时没有按天/按月统计。
 - projection cache 在 DSH checkpoint 时更新，所以浮层可能比实时请求慢一点；速率条只是参考值。

@@ -58,7 +58,7 @@ The repository ships two related pieces:
 
 ## Requirements
 
-- **DSH 0.2.1 or newer** for the overlay.
+- **DSH 0.2.1-rc.3 or newer** for the overlay.
 - A **DeepSeek account signed in through DSH** for the wallet balance. Token usage works without it; the wallet will show `OFFLINE`/`NO ACCOUNT`.
 - **macOS 13+ and Xcode Command Line Tools** for the desktop app (`swiftc`).
 
@@ -122,14 +122,14 @@ See [`desktop/README.md`](desktop/README.md) for controls, the optional LaunchAg
 
 ## Privacy and security
 
-- **No telemetry** and **no model calls**.
+- The plugin adds **no telemetry** and makes **no model calls**.
 - The desktop app reads the DSH credential token **read-only**; it never writes it, logs it, or uploads it anywhere except the DeepSeek Platform balance endpoint.
 - The overlay uses the DSH account remote; it does not open its own network connection.
 - No credentials are committed to this repository. Build the desktop app locally; do not distribute a copy containing someone else's data.
 
 ## Compatibility and limitations
 
-- The overlay requires DSH Web `0.2.1+` and the `shell.overlay`/session-controller services.
+- The overlay requires DSH Web `0.2.1-rc.3+` and the `shell.overlay`/session-controller services.
 - The wallet balance requires a signed-in DeepSeek account; token usage is local and independent of the account.
 - "All" usage is the sum of the sessions with loaded projections, not a historical database. There is no per-day/monthly breakdown yet.
 - Projection cache values update at DSH checkpoint boundaries, so the overlay can trail the live request by a moment. The rate strip is indicative.

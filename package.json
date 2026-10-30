@@ -1,0 +1,55 @@
+{
+  "name": "dsh-pixel-usage-desk",
+  "version": "0.1.0",
+  "description": "A retro pixel CRT DSH overlay for DeepSeek balance and live token usage, with a standalone macOS desktop widget in the same repository.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Twox",
+  "homepage": "https://github.com/wxfiveopps1102/pixel-usage-desk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wxfiveopps1102/pixel-usage-desk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wxfiveopps1102/pixel-usage-desk/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek",
+    "usage",
+    "balance",
+    "tokens",
+    "pixel-art"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.3"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  }
+}

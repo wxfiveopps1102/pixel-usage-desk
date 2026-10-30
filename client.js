@@ -532,7 +532,12 @@ window.__ModuleLoader__.load({
         this.balanceInFlight = true
         this.lastBalanceAt = now
         try {
-          const result = await this.ctx.remote.account.getBalance(this.accountMeta())
+          const account = this.ctx.remote && this.ctx.remote.account
+          if (!account || typeof account.getBalance !== 'function') {
+            this.patch({ account: 'error', balanceError: 'account service unavailable', updatedAt: Date.now() })
+            return
+          }
+          const result = await account.getBalance(this.accountMeta())
           if (!result || result.ok !== true) {
             const message = result && result.error && result.error.message
               ? result.error.message
@@ -964,7 +969,7 @@ window.__ModuleLoader__.load({
     }
 
     return {
-      inject: ['slots', 'sessions', 'remote', 'remote.account', 'locale'],
+      inject: ['slots', 'sessions', 'remote', 'locale'],
       apply,
     }
   },

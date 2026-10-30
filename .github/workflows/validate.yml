@@ -1,0 +1,39 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax check
+        run: |
+          node --check index.js
+          node --check client.js
+
+      - name: Manifest and client id
+        run: |
+          node - <<'NODE'
+          const fs = require('fs')
+          const p = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+          if (!p.dsh || !p.dsh.bundle || !p.dsh.bundle.patch) throw new Error('missing dsh.bundle.patch')
+          if (!p.dsh.client || p.dsh.client.platform !== 'web') throw new Error('missing dsh.client web entry')
+          const client = fs.readFileSync('client.js', 'utf8')
+          if (!client.includes(`id: '${p.name}'`)) throw new Error(`client.js module id must be ${p.name}`)
+          if (!fs.existsSync('cordis.patch.yml')) throw new Error('missing cordis.patch.yml')
+          console.log('manifest ok:', p.name, p.version)
+          NODE
+
+      - name: Package dry run
+        run: npm pack --dry-run
